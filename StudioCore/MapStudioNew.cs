@@ -110,13 +110,15 @@ namespace StudioCore
 
             var factory = _gd.ResourceFactory;
             TextureSamplerResourceLayout = factory.CreateResourceLayout(new ResourceLayoutDescription(
-               new ResourceLayoutElementDescription("SourceTexture", ResourceKind.TextureReadOnly, ShaderStages.Fragment),
-               new ResourceLayoutElementDescription("SourceSampler", ResourceKind.Sampler, ShaderStages.Fragment)));
+                new ResourceLayoutElementDescription("SourceTexture", ResourceKind.TextureReadOnly,
+                    ShaderStages.Fragment),
+                new ResourceLayoutElementDescription("SourceSampler", ResourceKind.Sampler, ShaderStages.Fragment)));
 
             Scene.Renderer.Initialize(_gd);
 
-            ImguiRenderer = new ImGuiRenderer(_gd, _gd.SwapchainFramebuffer.OutputDescription, CFG.Current.GFX_Display_Width,
-                CFG.Current.GFX_Display_Height, ColorSpaceHandling.Legacy);
+            ImguiRenderer = new ImGuiRenderer(_gd, _window, _gd.MainSwapchain.Framebuffer.OutputDescription,
+                CFG.Current.GFX_Display_Width,
+                CFG.Current.GFX_Display_Height);
             MainWindowCommandList = factory.CreateCommandList();
             GuiCommandList = factory.CreateCommandList();
 
@@ -176,7 +178,7 @@ namespace StudioCore
                 }
             }
             fonts.Build();
-            ImguiRenderer.RecreateFontDeviceTexture();
+            ImguiRenderer.RecreateFontDeviceTexture(_gd);
             ImguiRenderer.OnSetupDone();
 
             var style = ImGui.GetStyle();
@@ -239,21 +241,13 @@ namespace StudioCore
                 Sdl2Events.ProcessEvents();
                 snapshot = _window.PumpEvents();
                 InputTracker.UpdateFrameInput(snapshot, _window);
-                Update((float)deltaSeconds);
+                Update((float) deltaSeconds);
                 if (!_window.Exists)
                 {
                     break;
                 }
 
-                if (_window.Focused)
-                {
-                    Draw();
-                }
-                else
-                {
-                    // Flush the background queues
-                    Renderer.Frame(null, true);
-                }
+                Draw();
             }
 
             //DestroyAllObjects();
