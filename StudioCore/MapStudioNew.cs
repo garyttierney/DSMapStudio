@@ -936,6 +936,7 @@ namespace StudioCore
             //Scene.SceneRenderPipeline.TestUpdateView(_gd, MainWindowCommandList, TestWorldView.CameraTransform.CameraViewMatrix);
 
             _gd.SwapBuffers();
+            ImguiRenderer.SwapExtraWindows(_gd);
         }
     }
 }

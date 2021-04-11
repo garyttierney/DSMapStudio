@@ -83,7 +83,6 @@ namespace StudioCore
             ImGui.SetCurrentContext(context);
             ImGuiIOPtr io = ImGui.GetIO();
 
-            io.ConfigViewportsNoDecoration = false;
             io.ConfigFlags |= ImGuiConfigFlags.DockingEnable;
             io.ConfigFlags |= ImGuiConfigFlags.ViewportsEnable;
             ImGuiPlatformIOPtr platformIO = ImGui.GetPlatformIO();
@@ -121,7 +120,6 @@ namespace StudioCore
                 io.NativePtr->BackendPlatformName = (byte*) Marshal.StringToHGlobalAnsi("Veldrid.SDL2 Backend").ToPointer();
             }
 
-            io.BackendFlags |= ImGuiBackendFlags.HasMouseHoveredViewport;
             io.BackendFlags |= ImGuiBackendFlags.HasMouseCursors;
             io.BackendFlags |= ImGuiBackendFlags.HasSetMousePos;
             io.BackendFlags |= ImGuiBackendFlags.PlatformHasViewports;
@@ -652,7 +650,7 @@ namespace StudioCore
             io.KeySuper = _winKeyDown;
 
             ImVector<ImGuiViewportPtr> viewports = ImGui.GetPlatformIO().Viewports;
-            for (int i = 0; i < viewports.Size; i++)
+            for (int i = 1; i < viewports.Size; i++)
             {
                 ImGuiViewportPtr v = viewports[i];
                 VeldridImGuiWindow window = ((VeldridImGuiWindow)GCHandle.FromIntPtr(v.PlatformUserData).Target);
