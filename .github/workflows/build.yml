@@ -8,6 +8,9 @@ on:
 
 jobs:
   build:
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMAND: true
+
     runs-on: windows-latest
     steps:
       - name: Checkout
