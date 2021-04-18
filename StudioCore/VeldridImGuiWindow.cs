@@ -55,7 +55,7 @@ namespace StudioCore
             _window.Closed += () => _vp.PlatformRequestClose = true;
 
             SwapchainSource scSource = VeldridStartup.GetSwapchainSource(_window);
-            SwapchainDescription scDesc = new SwapchainDescription(scSource, (uint)_window.Width, (uint)_window.Height, null, true, false);
+            SwapchainDescription scDesc = new SwapchainDescription(scSource, (uint)_window.Width, (uint)_window.Height, PixelFormat.R32_Float, true, false);
             _sc = _gd.ResourceFactory.CreateSwapchain(scDesc);
             _window.Resized += () => _sc.Resize((uint)_window.Width, (uint)_window.Height);
 
