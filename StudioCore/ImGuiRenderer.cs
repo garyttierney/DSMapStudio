@@ -594,8 +594,9 @@ namespace StudioCore
             }
 
             io.MouseDown[0] = leftPressed || snapshot.IsMouseDown(MouseButton.Left);
-            io.MouseDown[1] = middlePressed || snapshot.IsMouseDown(MouseButton.Right);
-            io.MouseDown[2] = rightPressed || snapshot.IsMouseDown(MouseButton.Middle);
+            io.MouseDown[1] = middlePressed || snapshot.IsMouseDown(MouseButton.Middle);
+            io.MouseDown[2] = rightPressed || snapshot.IsMouseDown(MouseButton.Right);
+
 
             if (p_sdl_GetGlobalMouseState == null)
             {
@@ -607,8 +608,8 @@ namespace StudioCore
             {
                 uint buttons = p_sdl_GetGlobalMouseState(&x, &y);
                 io.MouseDown[0] = (buttons & 0b0001) != 0;
-                io.MouseDown[1] = (buttons & 0b0010) != 0;
-                io.MouseDown[2] = (buttons & 0b0100) != 0;
+                io.MouseDown[1] = (buttons & 0b0100) != 0;
+                io.MouseDown[2] = (buttons & 0b0010) != 0;
             }
 
             io.MousePos = new Vector2(x, y);
