@@ -24,7 +24,7 @@ jobs:
           ACTIONS_ALLOW_UNSECURE_COMMAND: 'true'
 
       - name: Build and publish
-        run: dotnet publish DSMapStudio --output mapstudio-dist
+        run: dotnet publish -c Release DSMapStudio --output mapstudio-dist
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
