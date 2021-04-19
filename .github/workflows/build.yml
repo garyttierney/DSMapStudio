@@ -1,0 +1,33 @@
+﻿name: .NET Core Desktop
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v1.0.2
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMAND: 'true'
+
+      - name: Build and publish
+        run: dotnet publish -c Release DSMapStudio --output mapstudio-dist
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: DSMapStudio
+          path: mapstudio-dist/
