@@ -396,7 +396,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Content Include="..\Lib\Release\cimgui.dll" Link="cimgui.dll">
+    <Content Include="..\Lib\cimgui.dll" Link="cimgui.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
